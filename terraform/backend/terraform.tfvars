@@ -1,0 +1,5 @@
+aws_region        = "eu-north-1"
+state_bucket_name = "aspire-three-tier-devsecops-tfstate-2026"
+lock_table_name   = "three-tier-devsecops-tflock"
+project_name      = "three-tier-devsecops-eks"
+environment       = "dev"
