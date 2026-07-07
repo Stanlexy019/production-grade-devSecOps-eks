@@ -2,7 +2,6 @@ module "networking" {
   source = "../../modules/networking"
 
   project_name = "three-tier-devsecops"
-  aws_region   = "eu-north-1"
   vpc_cidr     = var.vpc_cidr
 
   public_subnet_1_cidr = var.public_subnet_1_cidr
@@ -17,4 +16,28 @@ module "security" {
 
   project_name = var.project_name
   vpc_id       = module.networking.vpc_id
+}
+
+module "iam" {
+  source = "../../modules/iam"
+
+  project_name = var.project_name
+}
+
+module "eks" {
+  source = "../../modules/eks"
+
+  project_name     = var.project_name
+  cluster_role_arn = module.iam.cluster_role_arn
+  node_role_arn    = module.iam.node_role_arn
+  public_subnet_ids = [
+    module.networking.public_subnet_1_id,
+    module.networking.public_subnet_2_id
+  ]
+  cluster_sg_id      = module.security.cluster_sg_id
+  node_instance_type = var.node_instance_type
+  node_desired_size  = var.node_desired_size
+  node_min_size      = var.node_min_size
+  node_max_size      = var.node_max_size
+  kubernetes_version = var.kubernetes_version
 }
