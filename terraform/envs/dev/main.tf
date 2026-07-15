@@ -41,3 +41,10 @@ module "eks" {
   node_max_size      = var.node_max_size
   kubernetes_version = var.kubernetes_version
 }
+
+module "alb_integration" {
+  source = "../../modules/alb-controller"
+
+  project_name    = var.project_name
+  oidc_issuer_url = module.eks.oidc_issuer_url
+}
