@@ -26,3 +26,7 @@ output "cluster_sg_id" {
 output "alb_controller_role_arn" {
   value = module.alb_integration.alb_controller_role_arn
 }
+
+output "external_secrets_role_arn" {
+  value = module.external_secrets.external_secrets_role_arn
+}

@@ -45,3 +45,8 @@ variable "node_max_size" {
 variable "kubernetes_version" {
   type = string
 }
+
+variable "mongodb_secret_arn" {
+  type        = string
+  description = "ARN of the MongoDB Atlas secret stored in AWS Secrets Manager"
+}

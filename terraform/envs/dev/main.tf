@@ -48,3 +48,13 @@ module "alb_integration" {
   project_name    = var.project_name
   oidc_issuer_url = module.eks.oidc_issuer_url
 }
+
+module "external_secrets" {
+  source = "../../modules/external-secrets"
+
+  project_name       = var.project_name
+  mongodb_secret_arn = var.mongodb_secret_arn
+
+  oidc_issuer_url   = module.eks.oidc_issuer_url
+  oidc_provider_arn = module.alb_integration.oidc_provider_arn
+}
